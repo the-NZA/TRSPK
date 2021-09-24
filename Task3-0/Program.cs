@@ -17,10 +17,9 @@ namespace Task3_0
 	class PerCalc
 	{
 		private int _n;
-		private string _inputFile;
-		private string _outputFile;
-		private List<int> _xArr = new List<int>();
-		private List<int> _yArr = new List<int>();
+		private readonly string _inputFile;
+		private readonly string _outputFile;
+		private readonly List<(int x,int y)> _coords = new List<(int, int)>();
 
 		public PerCalc()
 		{
@@ -56,21 +55,19 @@ namespace Task3_0
 					 throw new Exception(Helpers.InvalidCoordsString);
 				 }
 
-				 int c = Convert.ToInt32(coords[0]);
-				 if (c < 1 || c > 8)
+				 int x = Convert.ToInt32(coords[0]);
+				 if (x < 1 || x > 8)
 				 {
 					 throw new Exception(Helpers.InvalidCoords);
 				 }
-				 
-				 _xArr.Add(c); // Сохраняем координату по x
 
-				 c = Convert.ToInt32(coords[1]);
-				 if (c < 1 || c > 8)
+				 int y = Convert.ToInt32(coords[1]);
+				 if (y < 1 || y > 8)
 				 {
 					 throw new Exception(Helpers.InvalidCoords);
 				 }
 				 
-				 _yArr.Add(c); // Сохраняем координату по y
+				 _coords.Add((x,y));
 			 }
 		}
 
@@ -79,26 +76,26 @@ namespace Task3_0
 			ReadCoords(); // Читаем координаты из файла
 
 			int maxPerimeter = 4 * _n; // Максимально возможный периметр для _n клеток
-			
-			// Считаем количество дублей по оси х
-			for (int i = 0; i < _xArr.Count -1 ; i++)
+
+			// Просматриваем для X
+			for (int i = 0; i < _coords.Count; i++)
 			{
-				for (int j = i + 1; j < _xArr.Count; j++)
+				for (int j = 0; j < _coords.Count; j++)
 				{
-					if (_xArr[i] == _xArr[j])
+					if (_coords[i].y == _coords[j].y && (_coords[i].x + 1) == _coords[j].x)
 					{
 						maxPerimeter -= 2;
 						break;
 					}
 				}
 			}
-
-			// Считаем количество дублей по оси y
-			for (int i = 0; i < _yArr.Count - 1; i++)
+			
+			// Просматриваем для Y
+			for (int i = 0; i < _coords.Count; i++)
 			{
-				for (int j = i + 1; j < _yArr.Count; j++)
+				for (int j = 0; j < _coords.Count; j++)
 				{
-					if (_yArr[i] == _yArr[j])
+					if (_coords[i].x == _coords[j].x && (_coords[i].y + 1) == _coords[j].y)
 					{
 						maxPerimeter -= 2;
 						break;
@@ -118,7 +115,7 @@ namespace Task3_0
 		{
 			try
 			{
-				PerCalc p = new PerCalc();
+				PerCalc p = new PerCalc(inputFile: Helpers.inputFile, outputFile: Helpers.outputFile);
 				Console.WriteLine(p.Calculate());
 			}
 			catch (Exception e)
