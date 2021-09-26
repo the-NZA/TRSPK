@@ -3,7 +3,7 @@
 namespace Task2_1
 {
     // Вспомагательный класс 
-    class Helpers
+    static class Helpers
     {
         public static string InvalidName = "Имя не может быть пустым";
         public static string InvalidTeenagerAge = "Возраст должен быть между 13 и 19 годами";

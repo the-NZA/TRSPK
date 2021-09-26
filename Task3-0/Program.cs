@@ -4,10 +4,10 @@ using System.IO;
 
 namespace Task3_0
 {
-	class Helpers
+	static class Helpers
 	{
-		public static string inputFile = "/Users/romankozlov/RiderProjects/TRSPK/Task3-0/INPUT.txt";
-		public static string outputFile = "/Users/romankozlov/RiderProjects/TRSPK/Task3-0/OUTPUT.txt";
+		public static readonly string InputFile = "/Users/romankozlov/RiderProjects/TRSPK/Task3-0/INPUT.txt";
+		public static readonly string OutputFile = "/Users/romankozlov/RiderProjects/TRSPK/Task3-0/OUTPUT.txt";
 		
 		public static string InvalidNumberOfCells = "Неверно задано количество клеток";
 		public static string InvalidCoordsString = "Неверно заданa строка с координатами";
@@ -23,14 +23,14 @@ namespace Task3_0
 
 		public PerCalc()
 		{
-			_inputFile = Helpers.inputFile;
-			_outputFile= Helpers.outputFile;
+			_inputFile = Helpers.InputFile;
+			_outputFile= Helpers.OutputFile;
 		}
 
 		public PerCalc(string inputFile, string outputFile)
 		{
-			_inputFile = String.IsNullOrWhiteSpace(inputFile) ? Helpers.inputFile : inputFile; // Имя файла для чтения информации
-			_outputFile = String.IsNullOrWhiteSpace(outputFile) ? Helpers.outputFile : outputFile; // Имя файла для записи информации
+			_inputFile = String.IsNullOrWhiteSpace(inputFile) ? Helpers.InputFile : inputFile; // Имя файла для чтения информации
+			_outputFile = String.IsNullOrWhiteSpace(outputFile) ? Helpers.OutputFile : outputFile; // Имя файла для записи информации
 		}
 
 		private void ReadCoords()
@@ -111,11 +111,11 @@ namespace Task3_0
 	
 	class Program
 	{
-		static void Main(string[] args)
+		static void Main()
 		{
 			try
 			{
-				PerCalc p = new PerCalc(inputFile: Helpers.inputFile, outputFile: Helpers.outputFile);
+				PerCalc p = new PerCalc(inputFile: Helpers.InputFile, outputFile: Helpers.OutputFile);
 				Console.WriteLine(p.Calculate());
 			}
 			catch (Exception e)
